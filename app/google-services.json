@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "805285394203",
+    "firebase_url": "https://chatlanguage-viniciusmangueira.firebaseio.com",
+    "project_id": "chatlanguage-viniciusmangueira",
+    "storage_bucket": "chatlanguage-viniciusmangueira.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:805285394203:android:9f762fd7c62f70a9",
+        "android_client_info": {
+          "package_name": "br.com.chatlaguage.vinicius.chatlanguage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "805285394203-uc2v10hr0li01hj02068j100gsfp4rno.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxRHi32SyE3PCPnlR91lakV_PPDKEs9SQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

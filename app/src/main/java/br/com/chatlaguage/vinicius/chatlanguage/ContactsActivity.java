@@ -6,10 +6,17 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.okhttp.internal.DiskLruCache;
+
+import org.w3c.dom.Document;
+
+import java.util.List;
 
 public class ContactsActivity extends AppCompatActivity {
 
@@ -25,8 +32,15 @@ public class ContactsActivity extends AppCompatActivity {
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                        Log.e("Teste", e.getMessage(), e);
+                        if(e != null) {
+                            Log.e("Teste", e.getMessage(), e);
+                            return;
+                        }
                     }
+
+                    
+
+
                 });
 
     }

@@ -38,7 +38,7 @@ public class ContactsActivity extends AppCompatActivity {
                         }
                     }
 
-                    
+
 
 
                 });

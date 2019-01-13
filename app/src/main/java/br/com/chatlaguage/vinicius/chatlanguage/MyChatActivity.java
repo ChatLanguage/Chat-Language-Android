@@ -38,6 +38,8 @@ public class MyChatActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.contacts:
+                Intent intent = new Intent(MyChatActivity.this, ContactsActivity.class);
+                startActivity(intent);
                 break;
             case R.id.logout:
                 FirebaseAuth.getInstance().signOut();

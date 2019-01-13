@@ -2,10 +2,13 @@ package br.com.chatlaguage.vinicius.chatlanguage;
 
 public class User {
 
-    private final String uuid;
-    private final String username;
-    private final String profileUrl;
+    private String uuid;
+    private String username;
+    private String profileUrl;
 
+    public User() {
+
+    }
 
 
     public User(String uuid, String username, String profileUrl) {

@@ -1,17 +1,24 @@
 package br.com.chatlaguage.vinicius.chatlanguage;
 
 import android.app.Notification;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 import com.xwray.groupie.GroupAdapter;
 import com.xwray.groupie.Item;
@@ -23,6 +30,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private GroupAdapter adapter;
     private User user;
+    private EditText editChat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +41,54 @@ public class ChatActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(user.getUsername());
 
         RecyclerView rv = findViewById(R.id.recycler_chat);
+        editChat = findViewById(R.id.edit_chat);
+        Button btnChat = findViewById(R.id.btn_chat);
+        btnChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendMessage();
+            }
+        });
+
         adapter = new GroupAdapter();
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
+    }
+
+    private void sendMessage() {
+        String text = editChat.getText().toString();
+        editChat.setText(null);
+        String fromId = FirebaseAuth.getInstance().getUid();
+        String toId = user.getUuid();
+        long timestamp = System.currentTimeMillis();
+
+
+        Message message = new Message();
+        message.setFromId(fromId);
+        message.setToId(toId);
+        message.setTimestamp(timestamp);
+        message.setText(text);
+
+        if(!message.getText().isEmpty()) {
+            FirebaseFirestore.getInstance().collection("/conversations")
+                    .document(fromId)
+                    .collection(toId)
+                    .add(message)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Log.d("Teste", documentReference.getId());
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.e("Teste",e.getMessage(), e);
+                        }
+                    });
+        }
+
+
     }
 
     private class MessageItem extends Item<ViewHolder> {

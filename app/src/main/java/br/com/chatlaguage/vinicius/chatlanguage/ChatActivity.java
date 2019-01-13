@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.squareup.picasso.Picasso;
 import com.xwray.groupie.GroupAdapter;
 import com.xwray.groupie.Item;
 import com.xwray.groupie.ViewHolder;
@@ -21,13 +22,14 @@ import org.w3c.dom.Text;
 public class ChatActivity extends AppCompatActivity {
 
     private GroupAdapter adapter;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_chat);
 
-        User user = (User) getIntent().getExtras().getParcelable("user");
+        user = (User) getIntent().getExtras().getParcelable("user");
         getSupportActionBar().setTitle(user.getUsername());
 
         RecyclerView rv = findViewById(R.id.recycler_chat);
@@ -51,7 +53,10 @@ public class ChatActivity extends AppCompatActivity {
             TextView txtMsg = viewHolder.itemView.findViewById(R.id.txt_msg);
             ImageView imgMessage = viewHolder.itemView.findViewById(R.id.img_message_user);
 
-
+            txtMsg.setText(message.getText());
+            Picasso.get()
+                    .load(user.getProfileUrl())
+                    .into(imgMessage);
         }
         @Override
         public int getLayout() {

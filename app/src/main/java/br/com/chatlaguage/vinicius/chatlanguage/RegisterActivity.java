@@ -141,16 +141,18 @@ public class RegisterActivity extends AppCompatActivity {
                                 String profileUri = uri.toString();
                                 User user = new User(uid,nome, profileUri);
 
-                            FirebaseFirestore.getInstance().collection("users").add(user)
-                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            FirebaseFirestore.getInstance().collection("users")
+                                    .document(uid)
+                                    .set(user)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
-                                        public void onSuccess(DocumentReference documentReference) {
-                                            Log.i("Teste", documentReference.getId());
+                                        public void onSuccess(Void aVoid) {
                                             Intent intent = new Intent(RegisterActivity.this, MyChatActivity.class);
                                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                             startActivity(intent);
                                         }
-                                    }).addOnFailureListener(new OnFailureListener() {
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                         Log.i("teste", e.getMessage());

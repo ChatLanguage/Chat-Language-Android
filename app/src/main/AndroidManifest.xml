@@ -19,13 +19,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:label="@string/contacts"
-            android:name=".ContactsActivity">
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
+            android:name=".ContactsActivity"
+            android:label="Contacts">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MyChatActivity" />
+        </activity>
+        <activity android:name=".ChatActivity">
+            <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".MyChatActivity" />
 
         </activity>
-
     </application>
 
 </manifest>
